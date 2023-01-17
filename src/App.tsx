@@ -5,12 +5,7 @@ import { fetchProduct } from "./redux/productSlice";
 import { useAppDispatch, useAppSelector } from "./redux/hooks";
 import Home from "./components/Home";
 import Products from "./components/Products";
-import { Routes, Route, Link, useLocation } from "react-router-dom";
-
-export const LocationDisplay = () => {
-  const location = useLocation();
-  return <div data-testid="location-display">{location.pathname}</div>;
-};
+import { Routes, Route, Link } from "react-router-dom";
 
 function App() {
   const [count, setCount] = useState(0);
