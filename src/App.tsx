@@ -3,6 +3,14 @@ import reactLogo from "./assets/react.svg";
 import "./App.css";
 import { fetchProduct } from "./redux/productSlice";
 import { useAppDispatch, useAppSelector } from "./redux/hooks";
+import Home from "./components/Home";
+import Products from "./components/Products";
+import { Routes, Route, Link, useLocation } from "react-router-dom";
+
+export const LocationDisplay = () => {
+  const location = useLocation();
+  return <div data-testid="location-display">{location.pathname}</div>;
+};
 
 function App() {
   const [count, setCount] = useState(0);
@@ -26,12 +34,14 @@ function App() {
           <img src={reactLogo} className="logo react" alt="React logo" />
         </a>
       </div>
-      <h1>Product List</h1>
-      <ul>
-        {products.map((p) => (
-          <li key={p.id}>{p.name}</li>
-        ))}
-      </ul>
+      <div>
+        <Link to="/">Home</Link>
+        <Link to="/product">Product</Link>
+      </div>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/product" element={<Products products={products} />} />
+      </Routes>
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
