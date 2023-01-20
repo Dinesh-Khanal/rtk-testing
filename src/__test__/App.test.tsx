@@ -11,7 +11,7 @@ describe("App component", () => {
     const buttonCount = await screen.findByRole("button", {
       name: /count is/i,
     });
-    expect(screen.getByText(/Product List/)).toBeInTheDocument();
+    expect(screen.getByText(/Welcome to sample test site/)).toBeInTheDocument();
     expect(buttonCount.innerHTML).toBe("count is 0");
     //button clicked twice
     fireEvent.click(buttonCount);

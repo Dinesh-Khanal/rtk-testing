@@ -6,6 +6,7 @@ type PProps = {
 const Products = ({ products }: PProps) => {
   return (
     <div>
+      <h2>Products List</h2>
       <h4>Available product are:</h4>
       <ul>
         {products.map((p) => (

@@ -4,11 +4,12 @@ import { fetchProduct } from "./redux/productSlice";
 import { useAppDispatch, useAppSelector } from "./redux/hooks";
 import Home from "./components/Home";
 import Products from "./components/Products";
+import Users from "./components/Users";
 import Layout from "./components/Layout";
 import { Routes, Route } from "react-router-dom";
 
 function App() {
-  const { products, isLoading, errMessage } = useAppSelector(
+  const { pList, isLoading, errMessage } = useAppSelector(
     (state) => state.products
   );
   const dispatch = useAppDispatch();
@@ -23,7 +24,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
-          <Route path="product" element={<Products products={products} />} />
+          <Route path="product" element={<Products products={pList} />} />
+          <Route path="users" element={<Users />} />
         </Route>
         <Route
           path="*"

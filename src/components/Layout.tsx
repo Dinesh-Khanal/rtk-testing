@@ -15,9 +15,10 @@ function Layout() {
           <img src={reactLogo} className="logo react" alt="React logo" />
         </a>
       </div>
-      <div>
+      <div className="navbar">
         <Link to="/">Home</Link>
-        <Link to="/product">Product</Link>
+        <Link to="/product">Products</Link>
+        <Link to="/users">Users</Link>
       </div>
       <Outlet />
       <div className="card">

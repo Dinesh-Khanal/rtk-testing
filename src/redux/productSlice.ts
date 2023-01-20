@@ -1,12 +1,20 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { IProduct } from "../types/productTypes";
+import { IUser } from "../types/userTypes";
 import ProductService from "./api";
 
 export const fetchProduct = createAsyncThunk("product/fetch", async () => {
   return await ProductService.getProduct();
 });
+export const createUser = createAsyncThunk(
+  "user/create",
+  async (user: IUser) => {
+    return await ProductService.postUser(user);
+  }
+);
 const initialState = {
-  products: [] as IProduct[],
+  pList: [] as IProduct[],
+  uCreate: {} as IUser,
   isLoading: false,
   errMessage: "",
 };
@@ -16,20 +24,27 @@ const productSlice = createSlice({
   reducers: {},
   extraReducers(builder) {
     builder
-      .addCase(fetchProduct.pending, (state) => {
+      .addCase(fetchProduct.pending || createUser.pending, (state) => {
         state.isLoading = true;
       })
       .addCase(
         fetchProduct.fulfilled,
         (state, action: PayloadAction<IProduct[]>) => {
           state.isLoading = false;
-          state.products = action.payload;
+          state.pList = action.payload;
         }
       )
-      .addCase(fetchProduct.rejected, (state, action) => {
+      .addCase(createUser.fulfilled, (state, action: PayloadAction<IUser>) => {
         state.isLoading = false;
-        state.errMessage = action.error.message || "";
-      });
+        state.uCreate = action.payload;
+      })
+      .addCase(
+        fetchProduct.rejected || createUser.rejected,
+        (state, action) => {
+          state.isLoading = false;
+          state.errMessage = action.error.message || "";
+        }
+      );
   },
 });
 export default productSlice.reducer;
